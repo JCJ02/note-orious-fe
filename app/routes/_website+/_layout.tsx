@@ -5,7 +5,7 @@ import NavigationBar from "~/components/layouts/NavigationBar";
 
 const WebsiteLayout = () => {
   return (
-    <div className="flex flex-col items-center m-auto max-w-[1280px]">
+    <div className="flex flex-col items-center h-full w-full">
       <NavigationBar />
       <Outlet />
       <Footer />

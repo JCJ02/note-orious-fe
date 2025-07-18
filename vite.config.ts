@@ -18,6 +18,14 @@ export default defineConfig({
         v3_singleFetch: true,
         v3_lazyRouteDiscovery: true,
       },
+      routes: async (defineRoutes) => {
+        // If you're using remix-flat-routes, import it properly
+        const { flatRoutes } = await import("remix-flat-routes");
+        return flatRoutes("routes", defineRoutes, {
+          ignoredRouteFiles: ["**/.*"],
+          paramPrefixChar: "_auth+",
+        });
+      },
     }),
     tsconfigPaths(),
   ],

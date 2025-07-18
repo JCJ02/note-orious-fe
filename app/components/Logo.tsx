@@ -1,13 +1,21 @@
 import { Link } from "@remix-run/react";
 import React from "react";
+import { cn } from "~/lib/utils";
 
-const Logo = () => {
+type LogoProps = {
+  className?: string;
+};
+
+const Logo = ({ className }: LogoProps) => {
   return (
     <Link
       to={"/"}
-      className="font-sans font-bold text-md md:text-lg lg:text-2xl cursor-pointer"
+      className={cn(
+        "font-roboto font-extrabold text-md md:text-lg lg:text-2xl cursor-pointer",
+        className
+      )}
     >
-      Note-orious Web App
+      Note-orious
     </Link>
   );
 };

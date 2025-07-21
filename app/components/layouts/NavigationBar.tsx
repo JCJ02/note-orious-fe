@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../Logo";
 import { NavLink } from "@remix-run/react";
-import { useNavigate } from "@remix-run/react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoCloseSharp } from "react-icons/io5";
 import { Button } from "../ui/button";
+import { useNavigation } from "~/utilities/useNavigation";
 
 const NavigationBar = () => {
-  const navigate = useNavigate();
-  const signIn = () => {
-    return navigate("/sign-in");
+  const { redirect } = useNavigation();
+  const [menu, setMenu] = useState(false);
+
+  const hamburgerButton = () => {
+    setMenu(!menu);
   };
+
   return (
-    <header className="bg-[#EEEEEE] fixed top-0 px-[2.5%] my-8 mx-4 rounded-full z-20 w-[90%] xl:max-w-[1280px]">
-      <nav className="flex justify-between items-center m-auto py-3 w-full">
-        <Logo className="text-[#262626]" />
-        <ul className="flex items-center gap-8">
+    <header className="fixed top-0 px-[5%] 2xl:px-0 my-8 z-20 w-full xl:max-w-[1280px]">
+      <nav className="bg-[#EEEEEE] flex justify-between items-center m-auto py-3 px-6 lg:px-9 rounded-full w-full">
+        <Logo />
+        <Button
+          className="flex lg:hidden bg-yellow-500 text-[#EEEEEE] text-xl hover:bg-yellow-500"
+          onClick={hamburgerButton}
+        >
+          {menu ? <IoCloseSharp /> : <GiHamburgerMenu />}
+        </Button>
+
+        {/* Desktop View */}
+        <ul className="hidden lg:flex items-center gap-8">
           <li className="flex items-center gap-8">
             <NavLink
               to="/home"
@@ -54,12 +67,65 @@ const NavigationBar = () => {
           </li>
           <Button
             className="bg-[#262626] font-roboto text-xs md:text-sm lg:text-lg hover:bg-yellow-500"
-            onClick={signIn}
+            onClick={() => redirect("/sign-in")}
           >
             Sign In
           </Button>
         </ul>
       </nav>
+
+      {/* Mobile View */}
+      {menu ? (
+        <ul className="bg-[#EEEEEE] flex lg:hidden flex-col items-center gap-8 p-10 my-5 rounded-xl w-full">
+          <li className="flex flex-col items-center gap-8">
+            <NavLink
+              to="/home"
+              className={({ isActive }) =>
+                `font-roboto font-bold text-sm ${
+                  isActive
+                    ? "text-yellow-500 py-1 px-4 rounded-md font-extrabold"
+                    : "text-[#262626]"
+                }`
+              }
+              onClick={hamburgerButton}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `font-roboto font-bold text-sm ${
+                  isActive
+                    ? "text-yellow-500 py-1 px-4 rounded-md font-extrabold"
+                    : "text-[#262626]"
+                }`
+              }
+              onClick={hamburgerButton}
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `font-roboto font-bold text-sm ${
+                  isActive
+                    ? "text-yellow-500 py-1 px-4 rounded-md font-extrabold"
+                    : "text-[#262626]"
+                }`
+              }
+              onClick={hamburgerButton}
+            >
+              Contact
+            </NavLink>
+          </li>
+          <Button
+            className="bg-yellow-500 font-roboto text-sm hover:bg-[#262626]"
+            onClick={() => redirect("/sign-in")}
+          >
+            Sign In
+          </Button>
+        </ul>
+      ) : null}
     </header>
   );
 };

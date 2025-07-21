@@ -11,11 +11,12 @@ const Logo = ({ className }: LogoProps) => {
     <Link
       to={"/"}
       className={cn(
-        "font-roboto font-extrabold text-md md:text-lg lg:text-2xl cursor-pointer",
+        "flex text-[#262626] font-roboto font-extrabold text-md md:text-lg lg:text-2xl cursor-pointer",
         className
       )}
     >
-      Note-orious
+      <h1 className="text-yellow-500">&lt;</h1>Note-orious
+      <h1 className="text-yellow-500">/&gt;</h1>
     </Link>
   );
 };

@@ -11,11 +11,11 @@ export const meta: MetaFunction = () => {
 const about = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen w-full">
-      <div className="flex flex-col justify-center items-start gap-4 max-w-[1280px]">
+      <div className="flex flex-col justify-center items-start gap-4 w-[90%] lg:max-w-[1280px]">
         <h1 className="font-roboto font-extrabold text-4xl md:text-5xl lg:text-6xl text-[#262626]">
-          About
+          About <b className="text-yellow-500">Note-orious</b> Web App
         </h1>
-        <p className="font-roboto text-sm md:text-md lg:text-lg text-[#262626] justify-center">
+        <p className="font-roboto text-lg md:text-xl lg:text-2xl text-[#262626] text-justify">
           It is a lightweight and intuitive note‑taking application inspired by{" "}
           <b className="text-yellow-500 hover:underline">
             <a href="https://keep.google.com/" target="_blank">

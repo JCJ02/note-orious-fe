@@ -76,7 +76,7 @@ const NavigationBar = () => {
 
       {/* Mobile View */}
       {menu ? (
-        <ul className="bg-[#EEEEEE] flex lg:hidden flex-col items-center gap-8 p-10 my-5 rounded-xl">
+        <ul className="bg-[#EEEEEE] flex lg:hidden flex-col items-center gap-8 p-10 my-5 rounded-xl w-full">
           <li className="flex flex-col items-center gap-8">
             <NavLink
               to="/home"

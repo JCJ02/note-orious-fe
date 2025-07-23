@@ -1,6 +1,7 @@
 import { MetaFunction } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import React, { useState } from "react";
+import LoadingProgress from "~/components/LoadingProgress";
 import Logo from "~/components/Logo";
 import { Button } from "~/components/ui/button";
 import {
@@ -12,7 +13,6 @@ import {
 import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Progress } from "~/components/ui/progress";
 import { useNavigation } from "~/utilities/useNavigation";
 
 export const meta: MetaFunction = () => {
@@ -50,11 +50,11 @@ const SignInPage = () => {
     }, 100); // Speed
   };
   return (
-    <Card className="relative flex flex-col lg:flex-row justify-center items-start lg:gap-8 px-5 lg:pt-5 lg:pb-10 border-0">
+    <Card className="relative flex flex-col lg:flex-row justify-center items-start lg:gap-8 lg:pt-5 px-5 lg:pb-10 border-0">
       {isLoading && (
-        <Progress
+        <LoadingProgress
           value={progress}
-          className="bg-[#EEEEEE] [&>div]:bg-yellow-500 top-0 absolute w-full"
+          className="bg-[#EEEEEE] [&>div]:bg-yellow-500 left-0 top-0 absolute w-full z-50"
         />
       )}
       <CardHeader className="flex flex-col justify-center items-start gap-2 w-full">
@@ -79,7 +79,7 @@ const SignInPage = () => {
       </CardHeader>
       <CardContent className="lg:p-10 w-full">
         {nextStep ? (
-          <Form className="flex flex-col justify-center items-center gap-10 pt-6 w-full xl:w-96">
+          <Form className="flex flex-col justify-center items-center gap-10 pt-6 w-full lg:w-96">
             <div className="flex flex-col items-start gap-3 w-full">
               <Input
                 className="py-6 w-full"
@@ -107,7 +107,7 @@ const SignInPage = () => {
             </div>
           </Form>
         ) : (
-          <Form className="flex flex-col justify-center items-center gap-10 pt-6 w-full xl:w-96">
+          <Form className="flex flex-col justify-center items-center gap-10 pt-6 w-full lg:w-96">
             <div className="flex flex-col items-start gap-3 w-full">
               <Input
                 className="py-6 w-full"

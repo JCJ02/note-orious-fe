@@ -10,17 +10,20 @@ const NavigationBar = () => {
   const { redirect } = useNavigation();
   const [menu, setMenu] = useState(false);
 
-  const hamburgerButton = () => {
-    setMenu(!menu);
+  const handleSignIn = () => {
+    redirect("/sign-in");
   };
 
+  const handleHamburgerButton = () => {
+    setMenu(!menu);
+  };
   return (
     <header className="fixed top-0 px-[5%] 2xl:px-0 my-8 z-20 w-full xl:max-w-[1280px]">
       <nav className="bg-[#EEEEEE] flex justify-between items-center m-auto py-3 px-6 lg:px-9 rounded-full w-full">
         <Logo />
         <Button
           className="flex lg:hidden bg-yellow-500 text-[#EEEEEE] text-xl hover:bg-yellow-500"
-          onClick={hamburgerButton}
+          onClick={handleHamburgerButton}
         >
           {menu ? <IoCloseSharp /> : <GiHamburgerMenu />}
         </Button>
@@ -67,7 +70,7 @@ const NavigationBar = () => {
           </li>
           <Button
             className="bg-[#262626] font-roboto text-xs md:text-sm lg:text-lg hover:bg-yellow-500"
-            onClick={() => redirect("/sign-in")}
+            onClick={handleSignIn}
           >
             Sign In
           </Button>
@@ -87,7 +90,7 @@ const NavigationBar = () => {
                     : "text-[#262626]"
                 }`
               }
-              onClick={hamburgerButton}
+              onClick={handleHamburgerButton}
             >
               Home
             </NavLink>
@@ -100,7 +103,7 @@ const NavigationBar = () => {
                     : "text-[#262626]"
                 }`
               }
-              onClick={hamburgerButton}
+              onClick={handleHamburgerButton}
             >
               About
             </NavLink>
@@ -113,14 +116,14 @@ const NavigationBar = () => {
                     : "text-[#262626]"
                 }`
               }
-              onClick={hamburgerButton}
+              onClick={handleHamburgerButton}
             >
               Contact
             </NavLink>
           </li>
           <Button
             className="bg-yellow-500 font-roboto text-sm hover:bg-[#262626]"
-            onClick={() => redirect("/sign-in")}
+            onClick={handleSignIn}
           >
             Sign In
           </Button>

@@ -1,5 +1,5 @@
 import { MetaFunction } from "@remix-run/node";
-import React from "react";
+import React, { useState } from "react";
 import backgroundVideo from "../../assets/videos/writing.mp4";
 import { Button } from "~/components/ui/button";
 import {
@@ -13,6 +13,7 @@ import { FiTag } from "react-icons/fi";
 import { FaComputer } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { useNavigation } from "~/utilities/useNavigation";
+import LoadingProgress from "~/components/LoadingProgress";
 
 export const meta: MetaFunction = () => {
   return [
@@ -23,8 +24,32 @@ export const meta: MetaFunction = () => {
 
 const HomePage = () => {
   const { redirect } = useNavigation();
+
+  // Progress State
+  const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGetStarted = () => {
+    setIsLoading(true);
+    setProgress(0);
+    let value = 0;
+    const interval = setInterval(() => {
+      value += 10;
+      setProgress(value);
+      if (value >= 150) {
+        clearInterval(interval);
+        redirect("/sign-in"); // Redirect After Progress Finishes
+      }
+    }, 150);
+  };
   return (
-    <div className="flex flex-col justify-center items-center gap-5 min-h-full w-full">
+    <div className="relative flex flex-col justify-center items-center gap-5 min-h-full w-full">
+      {isLoading && (
+        <LoadingProgress
+          value={progress}
+          className="bg-[#EEEEEE] [&>div]:bg-yellow-500 top-0 absolute w-full z-30"
+        />
+      )}
       {/* HOME */}
       <div className="relative flex justify-center items-center h-[75vh] w-full">
         <video
@@ -44,7 +69,7 @@ const HomePage = () => {
           </p>
           <Button
             className="bg-yellow-500 font-roboto text-md md:text-lg lg:text-xl py-6 px-8 hover:bg-[#262626]"
-            onClick={() => redirect("/sign-in")}
+            onClick={handleGetStarted}
           >
             Get Started
           </Button>

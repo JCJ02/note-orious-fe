@@ -12,7 +12,6 @@ import { FiTag } from "react-icons/fi";
 import { FaComputer } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { useNavigation } from "~/utilities/useNavigation";
-import LoadingProgress from "~/components/LoadingProgress";
 
 export const meta: MetaFunction = () => {
   return [

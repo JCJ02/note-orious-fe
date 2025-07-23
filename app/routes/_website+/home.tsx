@@ -1,5 +1,4 @@
 import { MetaFunction } from "@remix-run/node";
-import React, { useState } from "react";
 import backgroundVideo from "../../assets/videos/writing.mp4";
 import { Button } from "~/components/ui/button";
 import {
@@ -25,31 +24,11 @@ export const meta: MetaFunction = () => {
 const HomePage = () => {
   const { redirect } = useNavigation();
 
-  // Progress State
-  const [progress, setProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleGetStarted = () => {
-    setIsLoading(true);
-    setProgress(0);
-    let value = 0;
-    const interval = setInterval(() => {
-      value += 10;
-      setProgress(value);
-      if (value >= 150) {
-        clearInterval(interval);
-        redirect("/sign-in"); // Redirect After Progress Finishes
-      }
-    }, 150);
+    redirect("/sign-in");
   };
   return (
     <div className="relative flex flex-col justify-center items-center gap-5 min-h-full w-full">
-      {isLoading && (
-        <LoadingProgress
-          value={progress}
-          className="bg-[#EEEEEE] [&>div]:bg-yellow-500 top-0 absolute w-full z-30"
-        />
-      )}
       {/* HOME */}
       <div className="relative flex justify-center items-center h-[75vh] w-full">
         <video

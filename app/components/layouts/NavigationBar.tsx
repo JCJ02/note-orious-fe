@@ -20,7 +20,7 @@ const NavigationBar = () => {
   return (
     <header className="fixed top-0 px-[5%] 2xl:px-0 my-8 z-20 w-full xl:max-w-[1280px]">
       <nav className="bg-[#EEEEEE] flex justify-between items-center m-auto py-3 px-6 lg:px-9 rounded-full w-full">
-        <Logo />
+        <Logo to="/" />
         <Button
           className="flex lg:hidden bg-yellow-500 text-[#EEEEEE] text-xl hover:bg-yellow-500"
           onClick={handleHamburgerButton}

@@ -8,7 +8,7 @@ export async function getSoftDeletedNotesList({ request }: LoaderFunctionArgs) {
   const cookieHeader = request.headers.get("Cookie") || "";
 
   const response = await axiosClient.get(
-    `/api/Notes/soft-deleted-notes-list/${user.id}`,
+    `/api/Notes/soft-deleted-list/${user.id}`,
     {
       headers: {
         Cookie: cookieHeader,

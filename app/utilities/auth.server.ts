@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-export async function requireUserSession(request: Request) {
+export async function userSession(request: Request) {
   try {
     // Get Access Token from Cookies
     const cookieHeader = request.headers.get("Cookie");

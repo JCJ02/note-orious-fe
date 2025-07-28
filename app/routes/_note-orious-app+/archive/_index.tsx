@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import React from "react";
 import { getArchiveNotesLoader } from "./_services/archive.loader";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -6,8 +6,27 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { Label } from "~/components/ui/label";
 import EmptyArchiveNotes from "./_components/EmptyArchiveNotes";
+import { LucideArchiveRestore } from "lucide-react";
+import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import { unarchiveNoteAction } from "./_services/archive.action";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Archive - Note-orious Web App" },
+    { name: "description", content: "Welcome to Note-orious Web App!" },
+  ];
+};
 
 export const loader = getArchiveNotesLoader;
+
+export const action = async (args: ActionFunctionArgs) => {
+  const formData = await args.request.formData();
+  const method = formData.get("_method");
+
+  if (method === "unarchive") {
+    return unarchiveNoteAction({ ...args, formData });
+  }
+};
 
 const ArchivePage = () => {
   const { archiveNotes } = useLoaderData<typeof loader>();
@@ -27,10 +46,18 @@ const ArchivePage = () => {
               </CardHeader>
               <CardContent className="flex flex-col items-start gap-4">
                 <Label className="text-justify">{note.content}</Label>
-                <div className="flex items-center gap-1 self-end">
-                  <FaRegEdit className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                  <FaRegTrashCan className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                </div>
+
+                <Form
+                  method="post"
+                  replace
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <input type="hidden" name="_method" value="unarchive" />
+                  <input type="hidden" name="id" value={note.id} />
+                  <button type="submit">
+                    <LucideArchiveRestore className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                  </button>
+                </Form>
               </CardContent>
             </Card>
           ))}

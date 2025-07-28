@@ -68,7 +68,7 @@ const HomePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-8 w-full">
           <Card>
             <CardHeader>
-              <MdOutlineStickyNote2 />
+              <MdOutlineStickyNote2 className="text-5xl py-2" />
               <CardTitle>Quick Note Creation</CardTitle>
               <CardDescription>
                 Capture your thoughts instantly with our quick note creation
@@ -78,7 +78,7 @@ const HomePage = () => {
           </Card>
           <Card>
             <CardHeader>
-              <FiTag />
+              <FiTag className="text-5xl py-2" />
               <CardTitle>Organized with Labels</CardTitle>
               <CardDescription>
                 Categorize and manage your notes efficiently using labels. Keep
@@ -88,7 +88,7 @@ const HomePage = () => {
           </Card>
           <Card>
             <CardHeader>
-              <FaComputer />
+              <FaComputer className="text-5xl py-2" />
               <CardTitle>Sync Across Devices</CardTitle>
               <CardDescription>
                 Access your notes anytime, anywhere. Note-orious Web App syncs
@@ -98,7 +98,7 @@ const HomePage = () => {
           </Card>
           <Card>
             <CardHeader>
-              <IoSearch />
+              <IoSearch className="text-5xl py-2" />
               <CardTitle>Search and Filters</CardTitle>
               <CardDescription>
                 Quickly find the notes you need with our powerful search and

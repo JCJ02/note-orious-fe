@@ -1,12 +1,37 @@
 import React from "react";
 import { getSoftDeletedNotesList } from "./_services/trash.loader";
-import { useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
-import { FaRegTrashCan } from "react-icons/fa6";
 import EmptyTrash from "./_components/EmptyTrash";
+import { LiaTrashRestoreSolid, LiaTrashSolid } from "react-icons/lia";
+import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import {
+  deleteNoteAction,
+  restoreSoftDeletedNoteAction,
+} from "./_services/trash.actions";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Trash - Note-orious Web App" },
+    { name: "description", content: "Welcome to Note-orious Web App!" },
+  ];
+};
 
 export const loader = getSoftDeletedNotesList;
+
+export const action = async (args: ActionFunctionArgs) => {
+  const formData = await args.request.formData();
+  const method = formData.get("_method");
+
+  if (method === "restore-soft-deleted") {
+    return restoreSoftDeletedNoteAction({ ...args, formData });
+  }
+
+  if (method === "delete") {
+    return deleteNoteAction({ ...args, formData });
+  }
+};
 
 const TrashPage = () => {
   const { softDeletedNotes } = useLoaderData<typeof loader>();
@@ -26,8 +51,34 @@ const TrashPage = () => {
               </CardHeader>
               <CardContent className="flex flex-col items-start gap-4">
                 <Label className="text-justify">{note.content}</Label>
-                <div className="flex items-center gap-1 self-end">
-                  <FaRegTrashCan className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+
+                <div className="flex items-center">
+                  <Form
+                    method="post"
+                    replace
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <input
+                      type="hidden"
+                      name="_method"
+                      value="restore-soft-deleted"
+                    />
+                    <input type="hidden" name="id" value={note.id} />
+                    <button type="submit">
+                      <LiaTrashRestoreSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                    </button>
+                  </Form>
+                  <Form
+                    method="post"
+                    replace
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="hidden" name="id" value={note.id} />
+                    <button type="submit">
+                      <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                    </button>
+                  </Form>
                 </div>
               </CardContent>
             </Card>

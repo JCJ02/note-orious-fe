@@ -4,8 +4,8 @@ import { Form, useLoaderData } from "@remix-run/react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import EmptyNotes from "./_components/EmptyNotes";
-import { FaRegTrashCan } from "react-icons/fa6";
 import {
+  archiveNoteAction,
   createNoteAction,
   softDeleteNoteAction,
   updateNoteAction,
@@ -14,6 +14,8 @@ import { getNotesLoader } from "./_services/notes.loader";
 import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import Modal from "~/components/Modal";
 import EditNoteForm from "./_components/EditNoteForm";
+import { MdOutlineArchive } from "react-icons/md";
+import { LiaTrashSolid } from "react-icons/lia";
 
 export const meta: MetaFunction = () => {
   return [
@@ -33,6 +35,10 @@ export const action = async (args: ActionFunctionArgs) => {
 
   if (method === "delete") {
     return softDeleteNoteAction({ ...args, formData });
+  }
+
+  if (method === "archive") {
+    return archiveNoteAction({ ...args, formData });
   }
 
   return createNoteAction({ ...args, formData });
@@ -79,17 +85,30 @@ const NotesPage = () => {
               <CardContent className="flex flex-col items-end gap-4">
                 <Label className="text-justify">{note.content}</Label>
 
-                <Form
-                  method="post"
-                  replace
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  <input type="hidden" name="_method" value="delete" />
-                  <input type="hidden" name="id" value={note.id} />
-                  <button type="submit">
-                    <FaRegTrashCan className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                  </button>
-                </Form>
+                <div className="flex items-center">
+                  <Form
+                    method="post"
+                    replace
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <input type="hidden" name="_method" value="archive" />
+                    <input type="hidden" name="id" value={note.id} />
+                    <button type="submit">
+                      <MdOutlineArchive className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                    </button>
+                  </Form>
+                  <Form
+                    method="post"
+                    replace
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="hidden" name="id" value={note.id} />
+                    <button type="submit">
+                      <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                    </button>
+                  </Form>
+                </div>
               </CardContent>
             </Card>
           ))}

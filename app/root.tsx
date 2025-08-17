@@ -11,6 +11,7 @@ import "./tailwind.css";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -46,8 +47,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
-      <Outlet />
-      <ToastContainer />
+      <TooltipProvider>
+        <Outlet />
+        <ToastContainer />
+      </TooltipProvider>
     </>
   );
 }

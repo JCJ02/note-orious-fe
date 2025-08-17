@@ -2,13 +2,16 @@ import { Form, useLoaderData } from "@remix-run/react";
 import React from "react";
 import { getArchiveNotesLoader } from "./_services/archive.loader";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { FaRegEdit } from "react-icons/fa";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { Label } from "~/components/ui/label";
 import EmptyArchiveNotes from "./_components/EmptyArchiveNotes";
 import { LucideArchiveRestore } from "lucide-react";
 import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { unarchiveNoteAction } from "./_services/archive.action";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export const meta: MetaFunction = () => {
   return [
@@ -44,8 +47,8 @@ const ArchivePage = () => {
               <CardHeader>
                 <CardTitle>{note.title}</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col items-start gap-4">
-                <Label className="text-justify">{note.content}</Label>
+              <CardContent className="flex flex-col items-end gap-4">
+                <Label className="text-justify w-full">{note.content}</Label>
 
                 <Form
                   method="post"
@@ -54,9 +57,16 @@ const ArchivePage = () => {
                 >
                   <input type="hidden" name="_method" value="unarchive" />
                   <input type="hidden" name="id" value={note.id} />
-                  <button type="submit">
-                    <LucideArchiveRestore className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <button type="submit">
+                        <LucideArchiveRestore className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Label>Restore Note</Label>
+                    </TooltipContent>
+                  </Tooltip>
                 </Form>
               </CardContent>
             </Card>

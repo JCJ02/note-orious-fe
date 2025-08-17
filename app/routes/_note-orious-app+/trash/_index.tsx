@@ -10,6 +10,11 @@ import {
   deleteNoteAction,
   restoreSoftDeletedNoteAction,
 } from "./_services/trash.actions";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export const meta: MetaFunction = () => {
   return [
@@ -49,8 +54,8 @@ const TrashPage = () => {
               <CardHeader>
                 <CardTitle>{note.title}</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col items-start gap-4">
-                <Label className="text-justify">{note.content}</Label>
+              <CardContent className="flex flex-col items-end gap-4">
+                <Label className="text-justify w-full">{note.content}</Label>
 
                 <div className="flex items-center">
                   <Form
@@ -64,9 +69,16 @@ const TrashPage = () => {
                       value="restore-soft-deleted"
                     />
                     <input type="hidden" name="id" value={note.id} />
-                    <button type="submit">
-                      <LiaTrashRestoreSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                    </button>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <button type="submit">
+                          <LiaTrashRestoreSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <Label>Restore Note</Label>
+                      </TooltipContent>
+                    </Tooltip>
                   </Form>
                   <Form
                     method="post"
@@ -75,9 +87,16 @@ const TrashPage = () => {
                   >
                     <input type="hidden" name="_method" value="delete" />
                     <input type="hidden" name="id" value={note.id} />
-                    <button type="submit">
-                      <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                    </button>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <button type="submit">
+                          <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <Label>Permanently Delete</Label>
+                      </TooltipContent>
+                    </Tooltip>
                   </Form>
                 </div>
               </CardContent>

@@ -16,6 +16,11 @@ import Modal from "~/components/Modal";
 import EditNoteForm from "./_components/EditNoteForm";
 import { MdOutlineArchive } from "react-icons/md";
 import { LiaTrashSolid } from "react-icons/lia";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export const meta: MetaFunction = () => {
   return [
@@ -93,9 +98,16 @@ const NotesPage = () => {
                   >
                     <input type="hidden" name="_method" value="archive" />
                     <input type="hidden" name="id" value={note.id} />
-                    <button type="submit">
-                      <MdOutlineArchive className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                    </button>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <button type="submit">
+                          <MdOutlineArchive className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <Label>Archive Note</Label>
+                      </TooltipContent>
+                    </Tooltip>
                   </Form>
                   <Form
                     method="post"
@@ -104,9 +116,16 @@ const NotesPage = () => {
                   >
                     <input type="hidden" name="_method" value="delete" />
                     <input type="hidden" name="id" value={note.id} />
-                    <button type="submit">
-                      <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
-                    </button>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <button type="submit">
+                          <LiaTrashSolid className="text-2xl rounded-sm cursor-pointer hover:bg-gray-100 p-1" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <Label>Mote to Trash</Label>
+                      </TooltipContent>
+                    </Tooltip>
                   </Form>
                 </div>
               </CardContent>
